@@ -9,7 +9,7 @@
 	],
 	"contact": {
 		"homepage": "https://modrinth.com/project/creative-menu-tweaks",
-		"sources": ""
+		"sources": "https://github.com/Lucifixion/CreativeMenuTweaks"
 	},
 	"license": "MIT",
 	"icon": "assets/creativemenutweaks/icon.png",
@@ -22,10 +22,6 @@
 	"depends": {
 		"fabricloader": ">=0.15.7",
 		"minecraft": "~1.20.1",
-		"java": ">=17",
-		"fabric-api": "*"
-	},
-	"suggests": {
-		"another-mod": "*"
+		"java": ">=17"
 	}
 }
