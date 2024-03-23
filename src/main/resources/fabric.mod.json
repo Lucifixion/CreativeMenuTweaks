@@ -1,0 +1,31 @@
+{
+	"schemaVersion": 1,
+	"id": "creativemenutweaks",
+	"version": "${version}",
+	"name": "CreativeMenuTweaks",
+	"description": "A single mixin mod that makes the creative menu feel just that bit more alive.",
+	"authors": [
+		"GoopSwagger"
+	],
+	"contact": {
+		"homepage": "https://modrinth.com/project/creative-menu-tweaks",
+		"sources": ""
+	},
+	"license": "MIT",
+	"icon": "assets/creativemenutweaks/icon.png",
+	"environment": "*",
+	"entrypoints": {
+	},
+	"mixins": [
+		"creativemenutweaks.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.15.7",
+		"minecraft": "~1.20.1",
+		"java": ">=17",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}
