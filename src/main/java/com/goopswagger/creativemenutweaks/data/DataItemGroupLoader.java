@@ -6,10 +6,12 @@ import com.goopswagger.creativemenutweaks.CreativeMenuTweaks;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.JsonOps;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.resource.ResourceType;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.Identifier;
 
 import java.io.BufferedReader;
@@ -35,6 +37,7 @@ public class DataItemGroupLoader {
                         JsonObject json = JsonParser.parseReader(reader).getAsJsonObject();
                         DataResult<DataItemGroup> result = DataItemGroup.CODEC.parse(JsonOps.INSTANCE, json);
                         DataItemGroup groupOutput = result.getOrThrow(false, System.out::println);
+                        DataItemGroupManager.groupData.put(groupOutput.id, groupOutput);
                     } catch (IOException e) {
                         CreativeMenuTweaks.LOGGER.error("Error occurred while loading itemgroup json: " + identifier.toString(), e);
                     }
@@ -48,7 +51,11 @@ public class DataItemGroupLoader {
             }
         });
 
+        // frankly i don't know whats goin on here
+        ServerLifecycleEvents.SERVER_STARTED.register((server) -> DataItemGroupManager.groupData.forEach((identifier, dataItemGroup) -> dataItemGroup.parseLootTable(server)));
+
         ServerLifecycleEvents.END_DATA_PACK_RELOAD.register((server, resource, success) -> {
+            DataItemGroupManager.groupData.forEach((identifier, dataItemGroup) -> dataItemGroup.parseLootTable(server));
             if (success) {
                 server.getPlayerManager().getPlayerList().forEach(DataItemGroupManager::sync);
             }

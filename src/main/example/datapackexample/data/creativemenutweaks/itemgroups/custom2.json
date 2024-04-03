@@ -15,5 +15,8 @@
       "id": "minecraft:redstone_block",
       "Count": 1
     }
+  ],
+  "loot_tables": [
+    "jolted:items/alloy_forge"
   ]
 }
