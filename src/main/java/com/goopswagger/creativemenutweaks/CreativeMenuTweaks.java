@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 public class CreativeMenuTweaks implements ModInitializer {
 
     public static final Logger LOGGER = LoggerFactory.getLogger("Creative Menu Tweaks");
-    public static final Identifier SYNC_ID = new Identifier("creativemenutweaks", "sync");
 
     @Override
     public void onInitialize() {

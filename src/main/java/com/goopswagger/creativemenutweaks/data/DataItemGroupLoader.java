@@ -56,9 +56,7 @@ public class DataItemGroupLoader {
 
         ServerLifecycleEvents.END_DATA_PACK_RELOAD.register((server, resource, success) -> {
             DataItemGroupManager.groupData.forEach((identifier, dataItemGroup) -> dataItemGroup.parseLootTable(server));
-            if (success) {
-                server.getPlayerManager().getPlayerList().forEach(DataItemGroupManager::sync);
-            }
+            server.getPlayerManager().getPlayerList().forEach(DataItemGroupManager::sync);
         });
     }
 }

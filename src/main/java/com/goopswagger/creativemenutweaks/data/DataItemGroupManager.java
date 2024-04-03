@@ -2,6 +2,7 @@ package com.goopswagger.creativemenutweaks.data;
 
 import com.google.common.collect.Maps;
 import com.goopswagger.creativemenutweaks.CreativeMenuTweaks;
+import com.goopswagger.creativemenutweaks.networking.CreativeMenuTweaksPackets;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
@@ -39,11 +40,7 @@ public class DataItemGroupManager {
     }
 
     public static void sync(ServerPlayerEntity player) {
-        PacketByteBuf buf = PacketByteBufs.create();
-        groupData.forEach((identifier, dataItemGroup) -> {
-            buf.writeIdentifier(identifier);
-            buf.encodeAsJson(DataItemGroup.CODEC, dataItemGroup);
-        });
-        ServerPlayNetworking.send(player, CreativeMenuTweaks.SYNC_ID, buf);
+        ServerPlayNetworking.send(player, CreativeMenuTweaksPackets.CLEAR_DATAGROUP_MANAGER_ID, PacketByteBufs.empty());
+        groupData.forEach((identifier, dataItemGroup) -> dataItemGroup.sync(player));
     }
 }
