@@ -3,7 +3,7 @@
 	"id": "creativemenutweaks",
 	"version": "${version}",
 	"name": "CreativeMenuTweaks",
-	"description": "A single mixin mod that makes the creative menu feel just that bit more alive.",
+	"description": "A mod that improves the creative menu, including animations, sounds, and data driven item groups!",
 	"authors": [
 		"GoopSwagger"
 	],
@@ -28,7 +28,7 @@
 	],
 	"depends": {
 		"fabricloader": ">=0.15.7",
-		"minecraft": "~1.20.1",
+		"minecraft": "~1.20.4",
 		"java": ">=17"
 	}
 }
