@@ -1,0 +1,7 @@
+accessWidener v2 named
+
+accessible method net/minecraft/item/ItemGroup <init> (Lnet/minecraft/item/ItemGroup$Row;ILnet/minecraft/item/ItemGroup$Type;Lnet/minecraft/text/Text;Ljava/util/function/Supplier;Lnet/minecraft/item/ItemGroup$EntryCollector;)V
+accessible field net/minecraft/item/ItemGroup row Lnet/minecraft/item/ItemGroup$Row;
+mutable field net/minecraft/item/ItemGroup row Lnet/minecraft/item/ItemGroup$Row;
+accessible field net/minecraft/item/ItemGroup column I
+mutable field net/minecraft/item/ItemGroup column I

@@ -1,13 +1,15 @@
 {
-	"required": true,
-	"package": "com.goopswagger.creativemenutweaks.mixin",
-	"compatibilityLevel": "JAVA_17",
-	"mixins": [
-	],
-	"injectors": {
-		"defaultRequire": 1
-	},
-	"client": [
-		"CreativeInventoryScreenMixin"
-	]
+  "required": true,
+  "package": "com.goopswagger.creativemenutweaks.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "ItemGroupMixin",
+    "ItemGroupsMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "client": [
+    "CreativeInventoryScreenMixin"
+  ]
 }

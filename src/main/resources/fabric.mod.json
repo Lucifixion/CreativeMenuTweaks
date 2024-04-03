@@ -14,7 +14,14 @@
 	"license": "MIT",
 	"icon": "assets/creativemenutweaks/icon.png",
 	"environment": "*",
+	"accessWidener": "creativemenutweaks.accesswidener",
 	"entrypoints": {
+		"main": [
+			"com.goopswagger.creativemenutweaks.CreativeMenuTweaks"
+		],
+		"client": [
+			"com.goopswagger.creativemenutweaks.CreativeMenuTweaksClient"
+		]
 	},
 	"mixins": [
 		"creativemenutweaks.mixins.json"

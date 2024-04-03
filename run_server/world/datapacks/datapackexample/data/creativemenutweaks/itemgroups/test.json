@@ -1,0 +1,15 @@
+{
+  "id": "minecraft:colored_blocks",
+  "name": "diphit.city",
+  "icon": {
+    "id": "minecraft:potato",
+    "Count": 1
+  },
+  "replace": false,
+  "entries": [
+    {
+      "id": "minecraft:potato",
+      "Count": 1
+    }
+  ]
+}

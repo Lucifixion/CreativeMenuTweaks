@@ -1,0 +1,19 @@
+{
+  "id": "creativemenutweaks:bigguy",
+  "name": "itemGroup.coloredBlocks",
+  "icon": {
+    "id": "minecraft:compass",
+    "Count": 1
+  },
+  "replace": false,
+  "entries": [
+    {
+      "id": "minecraft:redstone",
+      "Count": 1
+    },
+    {
+      "id": "minecraft:redstone_block",
+      "Count": 1
+    }
+  ]
+}

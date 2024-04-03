@@ -1,0 +1,19 @@
+{
+  "id": "creativemenutweaks:test",
+  "name": "itemGroup.coloredBlocks",
+  "icon": {
+    "id": "minecraft:target",
+    "Count": 1
+  },
+  "replace": false,
+  "entries": [
+    {
+      "id": "minecraft:potato",
+      "Count": 1
+    },
+    {
+      "id": "minecraft:carrot",
+      "Count": 1
+    }
+  ]
+}
