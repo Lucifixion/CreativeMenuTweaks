@@ -16,7 +16,7 @@ import java.util.Collection;
 
 @Mixin(ItemGroup.class)
 public class ItemGroupMixin {
-    @Inject(method = "getDisplayStacks", at = @At(value = "TAIL"), cancellable = true)
+    @Inject(method = {"getDisplayStacks", "getSearchTabStacks"}, at = @At(value = "TAIL"), cancellable = true)
     private void getDisplayStacks(CallbackInfoReturnable<Collection<ItemStack>> cir) {
         ItemGroup group = (((ItemGroup) (Object) this));
         Identifier identifier = ItemGroupUtil.getGroupIdentifier(group);
