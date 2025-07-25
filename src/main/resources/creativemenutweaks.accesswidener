@@ -1,5 +1,10 @@
 accessWidener v2 named
 
+accessible class net/minecraft/recipe/Ingredient$Entry
+accessible class net/minecraft/recipe/Ingredient$StackEntry
+accessible class net/minecraft/recipe/Ingredient$TagEntry
+
+accessible field net/minecraft/recipe/Ingredient entries [Lnet/minecraft/recipe/Ingredient$Entry;
 accessible method net/minecraft/item/ItemGroup <init> (Lnet/minecraft/item/ItemGroup$Row;ILnet/minecraft/item/ItemGroup$Type;Lnet/minecraft/text/Text;Ljava/util/function/Supplier;Lnet/minecraft/item/ItemGroup$EntryCollector;)V
 accessible field net/minecraft/item/ItemGroup row Lnet/minecraft/item/ItemGroup$Row;
 mutable field net/minecraft/item/ItemGroup row Lnet/minecraft/item/ItemGroup$Row;

@@ -1,8 +1,10 @@
 package com.goopswagger.creativemenutweaks.mixin;
 
-import com.goopswagger.creativemenutweaks.data.DataItemGroup;
-import com.goopswagger.creativemenutweaks.data.DataItemGroupManager;
+import com.goopswagger.creativemenutweaks.event.GetItemGroupIconEvent;
+import com.goopswagger.creativemenutweaks.event.GetItemGroupNameEvent;
+import com.goopswagger.creativemenutweaks.event.PopulateItemGroupEvent;
 import com.goopswagger.creativemenutweaks.util.ItemGroupUtil;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
@@ -12,6 +14,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 @Mixin(ItemGroup.class)
@@ -19,29 +22,18 @@ public class ItemGroupMixin {
     @Inject(method = {"getDisplayStacks", "getSearchTabStacks"}, at = @At(value = "TAIL"), cancellable = true)
     private void getDisplayStacks(CallbackInfoReturnable<Collection<ItemStack>> cir) {
         ItemGroup group = (((ItemGroup) (Object) this));
-        Identifier identifier = ItemGroupUtil.getGroupIdentifier(group);
-        if (DataItemGroupManager.groupData.containsKey(identifier)) {
-            DataItemGroup dataItemGroup = DataItemGroupManager.groupData.get(identifier);
-            if (dataItemGroup.replace())
-                cir.setReturnValue(dataItemGroup.entries());
-            else
-                cir.getReturnValue().addAll(dataItemGroup.entries());
-        }
+        cir.setReturnValue(PopulateItemGroupEvent.EVENT.invoker().populate(MinecraftClient.getInstance().player, group, new ArrayList<>(cir.getReturnValue())));
     }
 
     @Inject(method = "getDisplayName", at = @At(value = "RETURN"), cancellable = true)
     private void getDisplayName(CallbackInfoReturnable<Text> cir) {
         ItemGroup group = (((ItemGroup) (Object) this));
-        Identifier identifier = ItemGroupUtil.getGroupIdentifier(group);
-        if (DataItemGroupManager.groupData.containsKey(identifier))
-            DataItemGroupManager.groupData.get(identifier).optionalName().ifPresent(name -> cir.setReturnValue(Text.translatable(name)));
+        cir.setReturnValue(GetItemGroupNameEvent.EVENT.invoker().getName(MinecraftClient.getInstance().player, group, cir.getReturnValue()));
     }
 
     @Inject(method = "getIcon", at = @At(value = "RETURN"), cancellable = true)
     private void getIcon(CallbackInfoReturnable<ItemStack> cir) {
         ItemGroup group = (((ItemGroup) (Object) this));
-        Identifier identifier = ItemGroupUtil.getGroupIdentifier(group);
-        if (DataItemGroupManager.groupData.containsKey(identifier))
-            DataItemGroupManager.groupData.get(identifier).optionalIcon().ifPresent(cir::setReturnValue);
+        cir.setReturnValue(GetItemGroupIconEvent.EVENT.invoker().getIcon(MinecraftClient.getInstance().player, group, cir.getReturnValue()));
     }
 }

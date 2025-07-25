@@ -1,7 +1,11 @@
 package com.goopswagger.creativemenutweaks.mixin;
 
+//import com.goopswagger.creativemenutweaks.data.DataItemGroupManager;
 import com.goopswagger.creativemenutweaks.data.DataItemGroupManager;
+import com.goopswagger.creativemenutweaks.event.AddItemGroupEvent;
 import com.goopswagger.creativemenutweaks.util.DummyItemGroup;
+import com.goopswagger.creativemenutweaks.util.ItemGroupUtil;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemGroups;
 import org.spongepowered.asm.mixin.Mixin;
@@ -17,22 +21,39 @@ import java.util.stream.Stream;
 @Mixin(ItemGroups.class)
 public abstract class ItemGroupsMixin {
     @Shadow
-    private static Stream<ItemGroup> stream() {
+    public static List<ItemGroup> getGroupsToDisplay() {
         return null;
     }
 
     @Inject(method = {"getGroupsToDisplay", "getGroups"}, at = @At(value = "TAIL"), cancellable = true)
     private static void getGroups(CallbackInfoReturnable<List<ItemGroup>> cir) {
-        List<ItemGroup> groups = new ArrayList<>(cir.getReturnValue());
-        final int[] offset = {0};
-        DataItemGroupManager.getCustomGroups().forEach((entry) -> {
-            DummyItemGroup group = entry.getValue().getDummyItemGroup();
-            if (!groups.contains(group)) {
-                group.adjust(stream(), offset[0]);
-                groups.add(group);
-                offset[0]++;
+        List<ItemGroup> standardItemGroups = new ArrayList<>();
+        List<ItemGroup> specialItemGroups = new ArrayList<>();
+
+        List<ItemGroup> defaultItemGroups = new ArrayList<>(cir.getReturnValue());
+        defaultItemGroups.addAll(DataItemGroupManager.getItemGroups());
+
+        for (ItemGroup itemGroup : defaultItemGroups) {
+            if (AddItemGroupEvent.EVENT.invoker().add(MinecraftClient.getInstance().player, itemGroup)) {
+                if (!itemGroup.isSpecial()) {
+                    ItemGroupUtil.calculateIndex(itemGroup, standardItemGroups.size());
+                    standardItemGroups.add(itemGroup);
+                } else {
+                    specialItemGroups.add(itemGroup);
+                }
             }
-        });
-        cir.setReturnValue(groups);
+        }
+
+        standardItemGroups.addAll(specialItemGroups);
+        cir.setReturnValue(standardItemGroups);
+    }
+
+    @Inject(method = "getDefaultTab", at = @At(value = "TAIL"), cancellable = true)
+    private static void getDefaultTab(CallbackInfoReturnable<ItemGroup> cir) {
+        List<ItemGroup> groups = getGroupsToDisplay();
+        if (groups != null && !groups.isEmpty()) {
+            ItemGroup group = groups.get(0);
+            cir.setReturnValue(group);
+        }
     }
 }

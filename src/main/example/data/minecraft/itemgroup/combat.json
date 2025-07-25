@@ -1,0 +1,65 @@
+{
+  "replace": false,
+  "disable": true,
+  "name": {
+    "translate": "itemGroup.combat",
+    "font": "minecraft:alt",
+    "color": "green"
+  },
+  "icon": {
+    "id": "minecraft:carrot"
+  },
+  "values": [
+    {
+      "target": "after",
+      "anchor": "minecraft:netherite_axe",
+      "values": [
+        {
+          "id": "minecraft:wooden_shovel"
+        },
+        {
+          "id": "minecraft:stone_shovel"
+        },
+        {
+          "id": "minecraft:iron_shovel"
+        },
+        {
+          "id": "minecraft:golden_shovel"
+        },
+        {
+          "id": "minecraft:diamond_shovel"
+        },
+        {
+          "id": "minecraft:netherite_shovel"
+        }
+      ]
+    },
+    {
+      "target": "before",
+      "anchor": "minecraft:diamond_sword",
+      "values": [
+        {
+          "id": "minecraft:dirt"
+        }
+      ]
+    },
+    {
+      "target": "head",
+      "anchor": "minecraft:diamond_sword",
+      "values": [
+        {
+          "id": "minecraft:carrot"
+        }
+      ]
+    },
+    {
+      "target": "tail",
+      "anchor": "minecraft:diamond_sword",
+      "values": [
+        {
+          "id": "minecraft:dirt"
+        }
+      ]
+    }
+  ]
+}
